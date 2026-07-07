@@ -169,11 +169,11 @@ ${generatedPrompt}
 <output_rules>
 1. 以严格的 JSON 格式输出，不要包含任何 markdown 标记或额外文本。
 2. "suggestions" 必须是字符串数组，每个元素为一条具体的修改建议。若无低于 4 分的维度，输出空数组 []。
-3. "pass" 为布尔值，若任一维度低于 4 分则为 false，否则为 true。
+3. "passed" 为布尔值，若任一维度低于 4 分则为 false，否则为 true。
 </output_rules>
 
 <output_schema>
-{"scores": {"clarity": 0, "completeness": 0, "executability": 0, "format": 0, "safety": 0}, "suggestions": ["建议1", "建议2"], "pass": true}
+{"scores": {"clarity": 0, "completeness": 0, "executability": 0, "format": 0, "safety": 0}, "suggestions": ["建议1", "建议2"], "passed": true}
 </output_schema>`;
 
   const response = await callAgnesAPI({
