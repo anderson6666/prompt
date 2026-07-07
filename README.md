@@ -71,6 +71,17 @@ npm run preview
 
 项目已配置自动部署到 GitHub Pages，推送代码后自动构建发布。
 
+**自动部署流程：**
+1. 推送代码到 `main` 分支
+2. GitHub Actions 自动触发构建
+3. 使用 Node 20 + npm 构建项目
+4. 自动部署到 GitHub Pages
+
+**部署地址：** https://anderson6666.github.io/prompt/
+
+**手动部署：**
+如需手动触发部署，可在 GitHub Actions 页面点击 "Deploy to GitHub Pages" workflow 的 "Run workflow" 按钮。
+
 ## 🔑 API Key 配置
 
 1. 获取 Agnes API Key：https://platform.agnes-ai.com/
