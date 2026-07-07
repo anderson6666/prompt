@@ -20,6 +20,7 @@ function App() {
   const [error, setError] = useState('');
   const [history, setHistory] = useState<GeneratedPrompt[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // 为每个澄清问题创建独立的答案状态（使用数组，索引对应问题索引）
   const updateClarificationAnswer = (index: number, value: string) => {
@@ -182,8 +183,17 @@ function App() {
     handleGeneratePrompt(parsedFields, clarifications);
   };
 
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopySuccess(true);
+      // 2秒后自动隐藏提示
+      setTimeout(() => {
+        setCopySuccess(false);
+      }, 2000);
+    } catch (err) {
+      setError('复制失败，请手动复制');
+    }
   };
 
   const handleReset = () => {
@@ -534,12 +544,27 @@ function App() {
 
               <div className="btn-group">
                 <button className="btn btn-secondary" onClick={() => handleCopy(generatedPromptText)}>
-                  复制 Prompt
+                  {copySuccess ? '✓ 已复制' : '复制 Prompt'}
                 </button>
                 <button className="btn btn-primary" onClick={handleReset}>
                   重新生成
                 </button>
               </div>
+              {copySuccess && (
+                <div style={{
+                  marginTop: '12px',
+                  padding: '8px 16px',
+                  background: 'rgba(0, 245, 255, 0.2)',
+                  border: '1px solid rgba(0, 245, 255, 0.4)',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  color: '#00f5ff',
+                  textAlign: 'center',
+                  animation: 'fadeIn 0.3s ease'
+                }}>
+                  ✓ Prompt 已成功复制到剪贴板
+                </div>
+              )}
             </div>
           )}
 
